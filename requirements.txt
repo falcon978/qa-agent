@@ -1,0 +1,9 @@
+langgraph
+langchain
+langchain-core
+langchain-openai
+pydantic
+python-dotenv
+mcp
+pydantic-settings
+streamlit

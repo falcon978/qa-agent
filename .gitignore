@@ -54,3 +54,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+# Node dependencies
+node_modules/

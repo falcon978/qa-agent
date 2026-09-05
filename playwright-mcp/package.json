@@ -1,0 +1,20 @@
+{
+  "name": "playwright-mcp",
+  "version": "1.0.0",
+  "description": "Playwright MCP Server for Autonomous Test Orchestrator",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
