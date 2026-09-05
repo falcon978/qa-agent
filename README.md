@@ -47,12 +47,15 @@ pip install -r requirements.txt
 ```
 
 ### 2. Node & Playwright MCP
-The MCP server executes the browser automation locally.
+The MCP server executes the browser automation locally. You must install the Playwright browser binaries after running `npm install`.
 ```bash
 cd playwright-mcp
 npm install
 npm run build
+npx playwright install chromium
+cd ..
 ```
+
 
 ### 3. Environment Variables
 Copy the `.env.example` file and configure your LLM API keys:
@@ -65,10 +68,10 @@ cp .env.example .env
 
 ## 🎮 How to Run
 
-Simply execute the main orchestrator script. By default, it runs against [SauceDemo](https://www.saucedemo.com/).
+Simply execute the Streamlit UI from the root directory. By default, it explores [SauceDemo](https://www.saucedemo.com/).
 
 ```bash
-python run.py
+STREAMLIT_BROWSER_GATHER_USAGE_STATS=false python -m streamlit run app.py --server.port 8501
 ```
 
 ### What happens when you run it?
