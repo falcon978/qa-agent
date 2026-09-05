@@ -16,32 +16,45 @@ async def run_orchestration(target_url: str, prd_context: str, test_data: dict) 
     
     return await app.ainvoke(initial_state)
 
+import argparse
+
 async def main():
+    parser = argparse.ArgumentParser(description="Aivar Autonomous Test Orchestrator CLI")
+    parser.add_argument("--url", type=str, default="https://www.saucedemo.com/", help="Target URL to explore")
+    parser.add_argument("--prd", type=str, default="", help="Optional PRD Context")
+    parser.add_argument("--test-data", type=str, default="", help="Optional JSON string containing test data")
+    args = parser.parse_args()
+
     print("🚀 Starting Aivar Autonomous Test Orchestrator...\n")
-
-    # We will test the official SauceDemo (Swag Labs) application
-    target_url = "https://www.saucedemo.com/"
+    print(f"🔗 Target URL: {args.url}")
     
-    prd_context = ""
-
-    # Define target and test data
-    target_url = "https://www.saucedemo.com/"
-    test_data = {
-        "users": {
-            "standard_user": {"username": "standard_user", "password": "secret_sauce"},
-            "locked_out_user": {"username": "locked_out_user", "password": "secret_sauce"},
-            "problem_user": {"username": "problem_user", "password": "secret_sauce"}
+    if args.test_data:
+        try:
+            test_data = json.loads(args.test_data)
+            print("📦 Custom Test Data Loaded.\n")
+        except json.JSONDecodeError:
+            print("❌ Invalid JSON format in --test-data argument. Exiting.")
+            return
+    else:
+        print("📦 Using default SauceDemo Test Data.\n")
+        test_data = {
+            "users": {
+                "standard_user": {"username": "standard_user", "password": "secret_sauce"},
+                "locked_out_user": {"username": "locked_out_user", "password": "secret_sauce"},
+                "problem_user": {"username": "problem_user", "password": "secret_sauce"}
+            }
         }
-    }
     
-
-    print("📄 PRD Context Loaded.\n")
+    if args.prd:
+        print(f"📄 PRD Context Loaded: {args.prd}\n")
+    else:
+        print("📄 No PRD Context Provided.\n")
 
     print("🧠 Invoking LangGraph workflow (Planner -> Meta-Evaluator -> Generator -> Executor -> Healer/Report)...\n")
     
     # Run the graph
     try:
-        final_state = await run_orchestration(target_url, prd_context, test_data)
+        final_state = await run_orchestration(args.url, args.prd, test_data)
     except Exception as e:
         print(f"❌ Orchestrator failed with error: {e}")
         return

@@ -80,16 +80,20 @@ if run_btn:
             ])
             
             with tabs[0]:
-                st.markdown(read_report("final_report.md"))
+                with st.container(height=700):
+                    st.markdown(read_report("final_report.md"))
                 
             with tabs[1]:
-                st.markdown(read_report("planner_test_plan.md"))
+                with st.container(height=700):
+                    st.markdown(read_report("planner_test_plan.md"))
                 
             with tabs[2]:
-                st.markdown(read_report("generated_test_plan.md"))
+                with st.container(height=700):
+                    st.markdown(read_report("generated_test_plan.md"))
                 
             with tabs[3]:
-                st.markdown(read_report("healer_report.md"))
+                with st.container(height=700):
+                    st.markdown(read_report("healer_report.md"))
                 
             with tabs[4]:
                 scripts = final_state.get("test_scripts", [])
